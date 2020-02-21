@@ -1,4 +1,4 @@
-# FAQ Bot Keras
+# A chatBot Keras
 A simple FAQ Bot built with Keras and Flask.
 
 ## Requirements
