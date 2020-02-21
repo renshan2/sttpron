@@ -27,8 +27,8 @@ def get_response(query):
     idx = argmax(model.predict(queryBag))
     return choice(intentsDict[classes[idx]])
 
-query = "question goes here"
-reply = "bot reply goes here!"
+query = "This is me"
+reply = "Hello there"
 
 
 
