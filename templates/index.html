@@ -5,12 +5,15 @@
   </head>
 
   <body>
-	<h2>Me: {{ questionAsked }}!</h2>
-    <h2>Bot: {{ response }}!</h2>
-	<form action="signup" method="post">
-	<input type="text" name="question"></input>
-	<input type="submit" value="Chat"></input>
-	</form>
-	</form>
-	</body>
+	<div align="right"><font color="black">Me: {{ questionAsked }}</font></div>
+	<div><font color="blue">Bot: {{ response }}</font></div> 
+	<br /> 
+	<hr />  
+	<div align="right">
+		<form action="signup" method="post">
+		<input type="text" name="question"></input>
+		<input type="submit" value="send"></input>
+		</form>
+	</div>
+  </body>
 </html>
