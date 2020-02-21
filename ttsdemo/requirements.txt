@@ -1,0 +1,13 @@
+certifi
+chardet
+gTTS
+gTTS-token
+idna
+mpg123
+PyAudio
+pytz
+requests
+SpeechRecognition
+urllib3
+beautifulsoup4
+
