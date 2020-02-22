@@ -67,6 +67,7 @@ def assistant(command):
 
     elif 'what\'s up' in command:
         talkToMe('Just doing my thing')
+        
     elif 'joke' in command:
         res = requests.get(
                 'https://icanhazdadjoke.com/',
