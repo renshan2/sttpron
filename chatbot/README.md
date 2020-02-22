@@ -9,8 +9,8 @@ A simple FAQ Bot built with Keras and Flask.
 
 ## Setup and Usage
 Create a folder named trainedModel.
-Edit the FAQ_db.json file as per need.
-Run the following to train the bot using the FAQ_db.json file.
+Edit the intents.json file as per need.
+Run the following to train the bot using the intents.json file.
 ```python
 trainBot.py
 ```

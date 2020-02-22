@@ -9,7 +9,7 @@ from keras.models import Sequential
 from keras.layers import Dense
 
 def parseDump():
-    with open('FAQ_db.json') as json_data:
+    with open('intents.json') as json_data:
         intents = load(json_data)
     vocabulary = []
     classes = []
