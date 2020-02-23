@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, jsonify
 from nltk import word_tokenize
 from nltk.stem.lancaster import LancasterStemmer
 from numpy import array, argmax
@@ -14,9 +14,7 @@ import webbrowser
 import smtplib
 import requests
 
-audiosw = True
-
-        
+   
 def getQueryFeatures(query):
     queryTokens = word_tokenize(query)
     queryStems = sorted(list(set([stemmer.stem(w.lower()) for w in queryTokens if w not in ignored])))
@@ -45,10 +43,36 @@ app = Flask(__name__)
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
-    return render_template('index.html', questionAsked=query, response=reply,audioSwitch = audiosw)
+    return render_template('preproc.html', questionAsked=query, response=reply)
 
 @app.route('/signup', methods = ['POST'])
 def signup():
+    global query
+    global reply
+    query = request.form['question']    
+    response = get_response(query)
+    print(response)
+    reply = response
+    return redirect('/')
+
+@app.route('/lower', methods=["GET", "POST"])
+def lower_case():
+    global query
+    global reply
+    query = request.form['text']    
+    response = get_response(query)
+    print(response)
+    reply = response
+    word = query.lower()
+    result = {
+        "query": word,
+        "response": response
+    }
+    result = {str(key): value for key, value in result.items()}
+    return jsonify(result=result)
+
+@app.route('/sendaudio', methods = ['GET'])
+def sendaudio():
     global query
     global reply
 
@@ -175,22 +199,17 @@ def signup():
         #  text_to_speech.save('audio.mp3')
         #  os.system('mpg123 audio.mp3')
 
-    if (audiosw): 
-        #loop to continue executing multiple commands
-        #while True:
-        query = myCommand()
-    else: 
-        query = request.form['question']
-    
+    query = myCommand()   
     response = get_response(query)
     print(response)
     reply = response
-    return redirect('/')
-
-def triggerAudio():
-    global audiosw
-    audiosw = False if audiosw else True
-    print('audiosw:',audiosw)   
+    word = query.lower()
+    result = {
+        "query": word,
+        "response": response
+    }
+    result = {str(key): value for key, value in result.items()}
+    return jsonify(result=result)
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
