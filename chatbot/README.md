@@ -1,5 +1,5 @@
 # A chatBot Keras
-A simple FAQ Bot built with Keras and Flask.
+A simple ChatBot built with Keras and Flask.
 
 ## Requirements
 1) Tensorflow
