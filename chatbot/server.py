@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, jsonify
+from gevent.pywsgi import WSGIServer
 from nltk import word_tokenize
 from nltk.stem.lancaster import LancasterStemmer
 from numpy import array, argmax
@@ -34,6 +35,7 @@ def get_response(query):
     queryBag = getQueryFeatures(query)
     model.predict(queryBag)
     idx = argmax(model.predict(queryBag))
+    # print(intentsDict[intents[idx]])
     return choice(intentsDict[classes[idx]])
 
 query = "This is me"   
@@ -177,8 +179,8 @@ def sendaudio():
             audio = r.listen(source)
 
         try:
-            command = r.recognize_google(audio).lower()
-            print('You said: ' + command + '\n')
+            command = r.recognize_google(audio)
+            #print('You said: ' + command + '\n')
             response = command
 
         #loop back to continue to listen for commands if unrecognizable speech is received
@@ -210,4 +212,8 @@ def sendaudio():
     return jsonify(result=result)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    # Debug/Development
+    app.run(debug=True, host="localhost", port="5000")
+    # Production
+    # http_server = WSGIServer(('', 5000), app)
+    # http_server.serve_forever()

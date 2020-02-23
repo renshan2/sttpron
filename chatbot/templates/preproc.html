@@ -37,8 +37,10 @@
 	<script>
 
 	function send_text() {
-	var text= $('#lowercase_text').val();
-	  $.ajax({
+	var nowObj = new Date();
+		var nowString = nowObj.toLocaleTimeString('en-US');
+		var text= $('#lowercase_text').val();
+	  	$.ajax({
 				  url: "/lower",
 				  type: "POST",
 				  data: {text:text}
@@ -53,15 +55,18 @@
 							htmlquestion += val;
 					 	else htmlresponse += val;
 					});
-					htmlquestion +="<br />";
-					htmlresponse +="<br />";
-					$(".question").append(htmlquestion);
-					$(".response").append(htmlresponse);
+					htmlquestion ="<div align='right'>"+htmlquestion+"</div><br />";
+					htmlresponse ="<div align='left' font='blue'>"+htmlresponse+"</div><br />";
+					html = "<div align='center'>" + nowString +"</div><br />" + htmlquestion+htmlresponse;
+					console.log(html)
+					$(".content").append(html);
 				});
 	};
 
 	function send_audio() {
-	  $.ajax({
+		var nowObj = new Date();
+		var nowString = nowObj.toLocaleTimeString('en-US');
+	  	$.ajax({
 				  url: "/sendaudio",
 				  type: "GET"
 			  }).done(function(response) {
@@ -75,10 +80,11 @@
 							htmlquestion += val;
 					 	else htmlresponse += val;
 					});
-					htmlquestion +="<br />";
-					htmlresponse +="<br />";
-					$(".question").append(htmlquestion);
-					$(".response").append(htmlresponse);
+					htmlquestion ="<div align='right'>"+htmlquestion+"</div><br />";
+					htmlresponse ="<div align='left' font='blue'>"+htmlresponse+"</div><br />";
+					html = "<div align='center'>" + nowString +"</div><br />" + htmlquestion+htmlresponse;
+					console.log(html)
+					$(".content").append(html);
 				});
 	};
 
@@ -86,13 +92,14 @@
 
 	</head>
 	<body>
+	<div align="center"><b><p>Improve My English Pronunication</p></b></div>
 	<div class="table" >
 		<div class="row">
-			<div class="question" align="right"></div>
+			<div class="content"></div>
 		</div>
-		<div class="row">
+		<!-- <div class="row">
 			<div class="response" align="left"></div>
-		</div>
+		</div> -->
 		<div class="row">
 			<div><button id="sent_tokenize_clicked" onclick="send_audio()">Audio</button><br></div>
 			<div><input type="text" id="lowercase_text"></div>
