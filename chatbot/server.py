@@ -60,15 +60,14 @@ def lower_case():
     global query
     global reply
     query = request.form['text']    
-    response = get_response(query)
-    print(response)
-    reply = response
-    word = query.lower()
+    response = get_response(query)    
+    #reply = response
+    #word = query.lower()
     result = {
-        "query": word,
-        "response": response
+        1: query, 2: response
     }
     result = {str(key): value for key, value in result.items()}
+    print(result)
     return jsonify(result=result)
 
 @app.route('/sendaudio', methods = ['GET'])
@@ -200,15 +199,14 @@ def sendaudio():
         #  os.system('mpg123 audio.mp3')
 
     query = myCommand()   
-    response = get_response(query)
-    print(response)
-    reply = response
-    word = query.lower()
+    response = get_response(query)    
+    #reply = response
+    word = query.capitalize()
     result = {
-        "query": word,
-        "response": response
+        1: word, 2: response
     }
     result = {str(key): value for key, value in result.items()}
+    print(result)
     return jsonify(result=result)
 
 if __name__ == "__main__":
