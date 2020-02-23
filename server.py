@@ -30,13 +30,13 @@ def get_response(query):
 query = "This is me"
 reply = "Hello there"
 
-
+audiosw = True
 
 app = Flask(__name__)
 
-@app.route('/')
-def hello_world():
-    return render_template('index.html', questionAsked=query, response=reply)
+@app.route('/', methods=['POST', 'GET'])
+def index():
+    return render_template('index.html', questionAsked=query, response=reply,audioSwitch = audiosw)
 
 @app.route('/signup', methods = ['POST'])
 def signup():
@@ -47,6 +47,10 @@ def signup():
 	print(response)
 	reply = response
 	return redirect('/')
+
+def triggerAudio():
+    audiosw = False if audiosw else True
+    print('audiosw:',audiosw)   
 
 if __name__ == "__main__":
     app.run()
