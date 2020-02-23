@@ -36,7 +36,7 @@ def get_response(query):
     idx = argmax(model.predict(queryBag))
     return choice(intentsDict[classes[idx]])
 
-query = "This is me"
+query = "This is me"   
 reply = "Hello there"
 
 app = Flask(__name__)

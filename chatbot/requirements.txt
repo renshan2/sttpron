@@ -4,7 +4,6 @@ gTTS
 gTTS-token
 idna
 mpg123
-PyAudio
 pytz
 requests
 SpeechRecognition
