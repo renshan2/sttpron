@@ -6,8 +6,10 @@ from numpy import array, argmax
 from keras import models
 from pickle import load
 from random import choice
-
+from playsound import playsound
+from datetime import datetime
 from gtts import gTTS
+from io import BytesIO
 import speech_recognition as sr
 import os
 import re
@@ -38,13 +40,31 @@ def get_response(query):
     # print(intentsDict[intents[idx]])
     return choice(intentsDict[classes[idx]])
 
+def talkToMe(audio):
+    "speaks audio passed as argument"
+    #for line in audio.splitlines():
+    #    os.system("say " + audio)
+    # remove file audio.mp3 if it exists
+    removeFiles("./")
+    fileext = datetime.now().strftime("%d-%m-%Y_%I-%M-%S_%p")
+    text_to_speech = gTTS(text=audio, lang='en')
+    audiofile = 'audio'+ fileext + '.mp3'
+    text_to_speech.save(audiofile)
+    playsound(audiofile)
+
+def removeFiles(dir_name):
+    test = os.listdir(dir_name)
+    for item in test:
+        if item.endswith(".mp3"):
+            os.remove(os.path.join(dir_name, item))
+
 query = "This is me"   
 reply = "Hello there"
 
 app = Flask(__name__)
 
 @app.route('/', methods=['POST', 'GET'])
-def index():
+def index():    
     return render_template('preproc.html', questionAsked=query, response=reply)
 
 @app.route('/signup', methods = ['POST'])
@@ -61,8 +81,11 @@ def signup():
 def sendtext():
     global query
     global reply
-    query = request.form['text']    
-    response = get_response(query)    
+    query = request.form['text']  
+    
+    response = get_response(query) 
+    #print(response)  
+    talkToMe(response) 
     #reply = response
     #word = query.lower()
     result = {
@@ -190,19 +213,10 @@ def sendaudio():
 
         return command
 
-    def talkToMe(audio):
-        "speaks audio passed as argument"
-        for line in audio.splitlines():
-            os.system("say " + audio)
-
-        #  use the system's inbuilt say command instead of mpg123
-        #  text_to_speech = gTTS(text=audio, lang='en')
-        #  text_to_speech.save('audio.mp3')
-        #  os.system('mpg123 audio.mp3')
-
     query = myCommand()   
     response = get_response(query)    
     #reply = response
+    talkToMe(response)
     word = query.capitalize()
     result = {
         1: word, 2: response

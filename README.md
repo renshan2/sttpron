@@ -2,10 +2,8 @@
 A simple ChatBot built with Keras and Flask.
 
 ## Requirements
-1) Tensorflow
-2) Keras
-3) flask
-4) nltk
+pip install Tensorflow, Keras, Flask, nltk
+(do it one by one)
 
 ## Installation:
 For Windows:

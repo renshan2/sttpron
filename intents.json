@@ -28,7 +28,7 @@
          "responses": ["Let's try it now"]
         },
         {"tag": "study",
-         "patterns": ["How can I start?", "What is study button?", "How to start this learning?" ],
+         "patterns": ["study","I want to study english","I want to study","How can I start?", "What is study button?", "How to start this learning?" ],
          "responses": ["I have a dream that one day down in Alabama, with its vicious racists, with its governor having his lips dripping with the words of interposition and nullification: one day right there in Alabama little black boys and black girls will be able to join hands with little white boys and white girls as sisters and brothers."]
         },
         {"tag": "opentoday",
