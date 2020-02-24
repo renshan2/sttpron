@@ -57,8 +57,8 @@ def signup():
     reply = response
     return redirect('/')
 
-@app.route('/lower', methods=["GET", "POST"])
-def lower_case():
+@app.route('/sendtext', methods=["GET", "POST"])
+def sendtext():
     global query
     global reply
     query = request.form['text']    

@@ -39,9 +39,9 @@
 	function send_text() {
 	var nowObj = new Date();
 		var nowString = nowObj.toLocaleTimeString('en-US');
-		var text= $('#lowercase_text').val();
+		var text= $('#input_text').val();
 	  	$.ajax({
-				  url: "/lower",
+				  url: "/sendtext",
 				  type: "POST",
 				  data: {text:text}
 			  }).done(function(response) {
@@ -102,8 +102,8 @@
 		</div> -->
 		<div class="row">
 			<div><button id="sent_tokenize_clicked" onclick="send_audio()">Audio</button><br></div>
-			<div><input type="text" id="lowercase_text"></div>
-			<div><button id="lowercase_clicked" onclick="send_text()">Text</button><br></div>
+			<div><input type="text" id="input_text"></div>
+			<div><button id="inputtext_clicked" onclick="send_text()">Text</button><br></div>
 		</div>
 	</div>
 	

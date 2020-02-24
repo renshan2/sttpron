@@ -3,6 +3,14 @@
          "patterns": ["Hi", "How are you", "Is anyone there?", "Hello"],
          "responses": ["Hello, there.", "Hi, how can I help?"]
         },
+        {"tag": "spelling",
+         "patterns": ["How to spell", "Why does it sound like this", "What to ", "Hello"],
+         "responses": ["Hello, there.", "Hi, how can I help?"]
+        },
+        {"tag": "ready",
+         "patterns": ["Ready", "Start", "Please begin", "I am ready"],
+         "responses": ["Just say Study "]
+        },
         {"tag": "goodbye",
          "patterns": ["Bye", "See you later", "Goodbye"],
          "responses": ["See you later!", "Have a nice day", "Bye! Come back again soon."]
@@ -15,13 +23,13 @@
          "patterns": ["What hours is EE office open?", "What are working hours of the department office?", "When does department office open?"],
          "responses": ["The department office is open for 10am-5pm on weekdays.", "Working hours for the EE office are 10am-5pm every weekday"]
         },
-        {"tag": "sysad",
-         "patterns": ["Who can I contact for network problems?", "Whom should I contact for Mail issues?", "Who can fix my computer problems?", "My internet is not working, who can fix it?"],
-         "responses": ["You may contact the Sysad room at xxxx@iitb.ac.in or give call at #XXXX#"]
+        {"tag": "help",
+         "patterns": ["Who can I get help?", "Whom should I contact for english learning?", "Who can fix my english pronunciation problems?", "My english is not working, who can fix it?"],
+         "responses": ["Let's try it now"]
         },
-        {"tag": "contactOffice",
-         "patterns": ["How can I contact the Department office?", "What is the email of EE office?", "How to contact department office?" ],
-         "responses": ["You can email the office at xxxx@iitb.ac.in"]
+        {"tag": "study",
+         "patterns": ["How can I start?", "What is study button?", "How to start this learning?" ],
+         "responses": ["I have a dream that one day down in Alabama, with its vicious racists, with its governor having his lips dripping with the words of interposition and nullification: one day right there in Alabama little black boys and black girls will be able to join hands with little white boys and white girls as sisters and brothers."]
         },
         {"tag": "opentoday",
          "patterns": ["Is the Deparment office open today?", "When does the Department office open today?", "What are working hours of EE office today?"],
