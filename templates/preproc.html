@@ -92,33 +92,39 @@
 	  <style>
 body {
   font-family: Arial;
-  color: white;
+  color: black;
+}
+div {
+  padding-top: 0px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
 }
 .mainContainer {
-  position: relative;
-  height: 90%;
+  position: absolute;
+  height: 100%;
   width: 100%;
   padding-top: -20px;
 }
 .topContainer {
   top: 0px;
   left: 0px;
-  height: 400px;
+  height: 300px;
   width: 100%;
   overflow: auto;
-  background-color: #111;
+  background-color: white;
 }
 .menubar {
   width:100%;
   align-self: center;	  
-  background-color: black;
+  background-color: white;
 }
 .bottomContainer {
   bottom: 0px;
   left: 0px;
-  height: 200px;
+  height: 40%;
   width: 100%;
-  background-color: blue;
+  background-color: green;
 }
 .centered {
   position: absolute;
@@ -138,9 +144,9 @@ body {
 				</div>
 			</div>
 			<div class="menubar" align="center">
-				<button id="sent_tokenize_clicked" onclick="send_audio()" width="5%">Audio</button>
-				<input type="text" id="input_text" width="90%" />
-				<button id="inputtext_clicked" onclick="send_text()" width="5%">Text</button>
+				<button id="sent_tokenize_clicked" onclick="send_audio()" style="height:25px; width:50px" >Audio</button>
+				<input type="text" id="input_text" size="50%" />
+				<button id="inputtext_clicked" onclick="send_text()" style="height:25px; width:50px" >Text</button>
 			</div>
 		
 			<div class="bottomContainer">	

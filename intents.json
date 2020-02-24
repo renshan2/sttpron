@@ -36,7 +36,7 @@
          "responses": ["The department office is open for 10am-5pm on weekdays.", "Working hours for the EE office are 10am-5pm every weekday"]
         },
         {"tag": "name",
-         "patterns": ["What is your name?", "What's your name?","Your name?", "Can I get your name?", "Can you tell me your name?", "I want to know your name." ],
+         "patterns": ["What is your name?", "What's your name?","Your name?", "Can I get your name?", "Can you tell me your name?", "I want to know your name.","Tell me about yourself" ],
          "responses": ["My name is Sophie"]
         },
         {"tag": "officePhone",
