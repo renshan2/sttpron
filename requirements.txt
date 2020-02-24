@@ -10,4 +10,5 @@ SpeechRecognition
 urllib3
 beautifulsoup4
 playsound
+gevent
 
