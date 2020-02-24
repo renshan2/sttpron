@@ -3,10 +3,11 @@ chardet
 gTTS
 gTTS-token
 idna
-mpg123
+mpg321
 pytz
 requests
 SpeechRecognition
 urllib3
 beautifulsoup4
+playsound
 
