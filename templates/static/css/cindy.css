@@ -1,0 +1,33 @@
+html,
+body,
+object {
+  height: 100%;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+div {
+  margin: 0px;
+  padding: 0px;
+}
+#mainContainer {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+#topContainer {
+  border: 1px solid red;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+}
+#bottomContainer {
+  border: 1px solid blue;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  height: 100px;
+  width: 100%;
+}

@@ -16,7 +16,7 @@ import re
 import webbrowser
 import smtplib
 import requests
-
+import errno, os, stat, shutil
    
 def getQueryFeatures(query):
     queryTokens = word_tokenize(query)
@@ -45,26 +45,46 @@ def talkToMe(audio):
     #for line in audio.splitlines():
     #    os.system("say " + audio)
     # remove file audio.mp3 if it exists
-    removeFiles("./")
+    dirname = os.getcwd()
+    
     fileext = datetime.now().strftime("%d-%m-%Y_%I-%M-%S_%p")
     text_to_speech = gTTS(text=audio, lang='en')
-    audiofile = 'audio'+ fileext + '.mp3'
-    text_to_speech.save(audiofile)
-    playsound(audiofile)
 
-def removeFiles(dir_name):
+    audiofile = os.path.join(dirname, 'audio'+ fileext + '.mp3')
+    text_to_speech.save(audiofile)    
+    try:
+        playsound(audiofile)
+    except:
+        print("the audio file is locked.")
+
+def handleRemoveReadonly(func, path, exc):
+  excvalue = exc[1]
+  if func in (os.rmdir, os.remove) and excvalue.errno == errno.EACCES:
+      os.chmod(path, stat.S_IRWXU| stat.S_IRWXG| stat.S_IRWXO) # 0777
+      func(path)
+  else:
+      print("cannot remove readonly of mp3 file")
+      #raise
+
+def removeAudioFiles(dir_name):
     test = os.listdir(dir_name)
     for item in test:
         if item.endswith(".mp3"):
-            os.remove(os.path.join(dir_name, item))
+            filename = os.path.join(dir_name, item)
+            #shutil.rmtree(filename, ignore_errors=False, onerror=handleRemoveReadonly)
+            try:
+                os.remove(filename)
+            except:
+                print("cannot remove readonly mp3 file, let's wait...")
 
-query = "This is me"   
-reply = "Hello there"
+query = "Hi"   
+reply = "Welcome to English Pronunciation Correction"
 
 app = Flask(__name__)
 
 @app.route('/', methods=['POST', 'GET'])
-def index():    
+def index():
+    removeAudioFiles(os.getcwd())    
     return render_template('preproc.html', questionAsked=query, response=reply)
 
 @app.route('/signup', methods = ['POST'])
@@ -100,92 +120,92 @@ def sendaudio():
     global query
     global reply
 
-    def assistant(command):
-        "if statements for executing commands"
+    # def assistant(command):
+    #     "if statements for executing commands"
 
-        if 'open reddit' in command:
-            reg_ex = re.search('open reddit (.*)', command)
-            url = 'https://www.reddit.com/'
-            if reg_ex:
-                subreddit = reg_ex.group(1)
-                url = url + 'r/' + subreddit
-            webbrowser.open(url)
-            print('Done!')
+    #     if 'open reddit' in command:
+    #         reg_ex = re.search('open reddit (.*)', command)
+    #         url = 'https://www.reddit.com/'
+    #         if reg_ex:
+    #             subreddit = reg_ex.group(1)
+    #             url = url + 'r/' + subreddit
+    #         webbrowser.open(url)
+    #         print('Done!')
 
-        elif 'open website' in command:
-            reg_ex = re.search('open website (.+)', command)
-            if reg_ex:
-                domain = reg_ex.group(1)
-                url = 'https://www.' + domain
-                webbrowser.open(url)
-                print('Done!')
-            else:
-                pass
+    #     elif 'open website' in command:
+    #         reg_ex = re.search('open website (.+)', command)
+    #         if reg_ex:
+    #             domain = reg_ex.group(1)
+    #             url = 'https://www.' + domain
+    #             webbrowser.open(url)
+    #             print('Done!')
+    #         else:
+    #             pass
 
-        elif 'what\'s up' in command:
-            talkToMe('Just doing my thing')
+    #     elif 'what\'s up' in command:
+    #         talkToMe('Just doing my thing')
             
-        elif 'joke' in command:
-            res = requests.get(
-                    'https://icanhazdadjoke.com/',
-                    headers={"Accept":"application/json"}
-                    )
-            if res.status_code == 200:
-                talkToMe(str(res.json()['joke']))
-            else:
-                talkToMe('oops!I ran out of jokes')
-        elif 'email' in command:
-            talkToMe('Who is the recipient?')
-            recipient = myCommand()
+    #     elif 'joke' in command:
+    #         res = requests.get(
+    #                 'https://icanhazdadjoke.com/',
+    #                 headers={"Accept":"application/json"}
+    #                 )
+    #         if res.status_code == 200:
+    #             talkToMe(str(res.json()['joke']))
+    #         else:
+    #             talkToMe('oops!I ran out of jokes')
+    #     elif 'email' in command:
+    #         talkToMe('Who is the recipient?')
+    #         recipient = myCommand()
 
-            if 'John' in recipient:
-                talkToMe('What should I say?')
-                content = myCommand()
+    #         if 'John' in recipient:
+    #             talkToMe('What should I say?')
+    #             content = myCommand()
 
-                #init gmail SMTP
-                mail = smtplib.SMTP('smtp.gmail.com', 587)
+    #             #init gmail SMTP
+    #             mail = smtplib.SMTP('smtp.gmail.com', 587)
 
-                #identify to server
-                mail.ehlo()
+    #             #identify to server
+    #             mail.ehlo()
 
-                #encrypt session
-                mail.starttls()
+    #             #encrypt session
+    #             mail.starttls()
 
-                #login
-                mail.login('username', 'password')
+    #             #login
+    #             mail.login('username', 'password')
 
-                #send message
-                mail.sendmail('John Fisher', 'JARVIS2.0@protonmail.com', content)
+    #             #send message
+    #             mail.sendmail('John Fisher', 'JARVIS2.0@protonmail.com', content)
 
-                #end mail connection
-                mail.close()
+    #             #end mail connection
+    #             mail.close()
 
-                talkToMe('Email sent.')
+    #             talkToMe('Email sent.')
 
-            else:
-                talkToMe('I don\'t know what you mean!')
+    #         else:
+    #             talkToMe('I don\'t know what you mean!')
 
         
-        # elif 'current weather in' in command:
-        #     reg_ex = re.search('current weather in (.*)', command)
-        #     if reg_ex:
-        #         city = reg_ex.group(1)
-        #         weather = Weather()
-        #         location = weather.lookup_by_location(city)
-        #         condition = location.condition()
-        #         talkToMe('The Current weather in %s is %s The tempeture is %.1f degree' % (city, condition.text(), (int(condition.temp())-32)/1.8))
+    #     # elif 'current weather in' in command:
+    #     #     reg_ex = re.search('current weather in (.*)', command)
+    #     #     if reg_ex:
+    #     #         city = reg_ex.group(1)
+    #     #         weather = Weather()
+    #     #         location = weather.lookup_by_location(city)
+    #     #         condition = location.condition()
+    #     #         talkToMe('The Current weather in %s is %s The tempeture is %.1f degree' % (city, condition.text(), (int(condition.temp())-32)/1.8))
 
-        # elif 'weather forecast in' in command:
-        #     reg_ex = re.search('weather forecast in (.*)', command)
-        #     if reg_ex:
-        #         city = reg_ex.group(1)
-        #         weather = Weather()
-        #         location = weather.lookup_by_location(city)
-        #         forecasts = location.forecast()
-        #         for i in range(0,3):
-        #             talkToMe('On %s will it %s. The maximum temperture will be %.1f degree.'
-        #                      'The lowest temperature will be %.1f degrees.' % (forecasts[i].date(), forecasts[i].text(), (int(forecasts[i].high())-32)/1.8, (int(forecasts[i].low())-32)/1.8))
-        return ("I am doing my thing")
+    #     # elif 'weather forecast in' in command:
+    #     #     reg_ex = re.search('weather forecast in (.*)', command)
+    #     #     if reg_ex:
+    #     #         city = reg_ex.group(1)
+    #     #         weather = Weather()
+    #     #         location = weather.lookup_by_location(city)
+    #     #         forecasts = location.forecast()
+    #     #         for i in range(0,3):
+    #     #             talkToMe('On %s will it %s. The maximum temperture will be %.1f degree.'
+    #     #                      'The lowest temperature will be %.1f degrees.' % (forecasts[i].date(), forecasts[i].text(), (int(forecasts[i].high())-32)/1.8, (int(forecasts[i].low())-32)/1.8))
+    #     return ("I am doing my thing")
 
     def myCommand():
         "listens for commands"

@@ -23,10 +23,10 @@
 	<meta name="twitter:image" content="" />
 	<meta name="twitter:url" content="" />
 	<meta name="twitter:card" content="" />
-
+	
 	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 	<link rel="shortcut icon" href="favicon.ico">
-
+	<link rel="stylesheet" type="text/css" href="./static/css/cindy.css">
 	<!-- Modernizr JS -->
 	<script src="js/modernizr-2.6.2.min.js"></script>
 	<!-- FOR IE9 below -->
@@ -34,8 +34,8 @@
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	
 	<script>
-
 	function send_text() {
 	var nowObj = new Date();
 		var nowString = nowObj.toLocaleTimeString('en-US');
@@ -55,9 +55,9 @@
 							htmlquestion += val;
 					 	else htmlresponse += val;
 					});
-					htmlquestion ="<div align='right'>"+htmlquestion+"</div><br />";
-					htmlresponse ="<div align='left' font='blue'>"+htmlresponse+"</div><br />";
-					html = "<div align='center'>" + nowString +"</div><br />" + htmlquestion+htmlresponse;
+					htmlquestion ="<div align='right'>"+htmlquestion+"</div>";
+					htmlresponse ="<div align='left' font='color=red'>"+htmlresponse+"</div>";
+					html = "<div align='center'>" + nowString +"</div>" + htmlquestion+htmlresponse;
 					console.log(html)
 					$(".content").append(html);
 				});
@@ -80,32 +80,75 @@
 							htmlquestion += val;
 					 	else htmlresponse += val;
 					});
-					htmlquestion ="<div align='right'>"+htmlquestion+"</div><br />";
-					htmlresponse ="<div align='left' font='blue'>"+htmlresponse+"</div><br />";
-					html = "<div align='center'>" + nowString +"</div><br />" + htmlquestion+htmlresponse;
+					htmlquestion ="<div align='right'>"+htmlquestion+"</div>";
+					htmlresponse ="<div align='left' font='blue'>"+htmlresponse+"</div>";
+					html = "<div align='center'>" + nowString +"</div>" + htmlquestion+htmlresponse;
 					console.log(html)
 					$(".content").append(html);
 				});
 	};
 
-  	</script>
-
+	  </script>
+	  <style>
+body {
+  font-family: Arial;
+  color: white;
+}
+.mainContainer {
+  position: relative;
+  height: 90%;
+  width: 100%;
+  padding-top: -20px;
+}
+.topContainer {
+  top: 0px;
+  left: 0px;
+  height: 400px;
+  width: 100%;
+  overflow: auto;
+  background-color: #111;
+}
+.menubar {
+  width:100%;
+  align-self: center;	  
+  background-color: black;
+}
+.bottomContainer {
+  bottom: 0px;
+  left: 0px;
+  height: 200px;
+  width: 100%;
+  background-color: blue;
+}
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+	  </style>
 	</head>
 	<body>
-	<div align="center"><b><p>Improve My English Pronunication</p></b></div>
-	<div class="table" >
-		<div class="row">
-			<div class="content"></div>
-		</div>
-		<!-- <div class="row">
-			<div class="response" align="left"></div>
-		</div> -->
-		<div class="row">
-			<div><button id="sent_tokenize_clicked" onclick="send_audio()">Audio</button><br></div>
-			<div><input type="text" id="input_text"></div>
-			<div><button id="inputtext_clicked" onclick="send_text()">Text</button><br></div>
-		</div>
-	</div>
+		<div class="mainContainer">
+			<div class="topContainer">
+				<div align="center"><b><p>Improve My English Pronunication</p></b>
+					<div class="content"></div>
+					<br />
+				</div>
+			</div>
+			<div class="menubar" align="center">
+				<button id="sent_tokenize_clicked" onclick="send_audio()" width="5%">Audio</button>
+				<input type="text" id="input_text" width="90%" />
+				<button id="inputtext_clicked" onclick="send_text()" width="5%">Text</button>
+			</div>
+		
+			<div class="bottomContainer">	
+				<img src="img_avatar.png" alt="Avatar man">
+				<h2>John Doe</h2>
+				<p>Some text here too.</p>
+			</div>
+	  </div>
 	
 
 	<!-- jQuery -->
