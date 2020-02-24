@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<title> VIRTUAL Chat app</title>
+	
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"> </script>
+    <script type=text/javascript> $(function() { $("#audiobutton").click(function (event) { $.getJSON('/sendaudio', { },
+    function(data) { }); return false; }); }); </script> 
+  </head>
+
+  <body>
+	<div align="right"><font color="black">Me: {{ questionAsked }}</font></div>
+	<div><font color="blue">Bot: {{ response }}</font></div> 
+	<br /> 
+	<hr />  
+	<div width="100%">
+		<form action="signup" method="post">
+		<button type="button" type="audiobutton">audio</button>
+		<input type="text" name="question"></input>
+		<input type="submit" value="send" name="sendbutton" align="right"></input>
+		</form>
+	</div>
+  </body>
+</html>

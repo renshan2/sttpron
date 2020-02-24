@@ -1,24 +1,185 @@
-<!DOCTYPE html>
-<html>
-  <head>
-	<title> VIRTUAL Chat app</title>
-	
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"> </script>
-    <script type=text/javascript> $(function() { $("#audiobutton").click(function (event) { $.getJSON('/sendaudio', { },
-    function(data) { }); return false; }); }); </script> 
-  </head>
 
-  <body>
-	<div align="right"><font color="black">Me: {{ questionAsked }}</font></div>
-	<div><font color="blue">Bot: {{ response }}</font></div> 
-	<br /> 
-	<hr />  
-	<div width="100%">
-		<form action="signup" method="post">
-		<button type="button" type="audiobutton">audio</button>
-		<input type="text" name="question"></input>
-		<input type="submit" value="send" name="sendbutton" align="right"></input>
-		</form>
-	</div>
-  </body>
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>ML - American English Pronunication Learning (ML-EPL)</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Machine Learning based English Pronunication Learning Website" />
+	<meta name="keywords" content="american english, automatic, lexical, pitch, accent, pronunicatoin, english pronunication, english learning, english syllable correction, lexical stress, accent detection" />
+	<meta name="author" content="SpeakGoodEnglish (SGE)" />
+
+  	<!-- Facebook and Twitter integration -->
+	<meta property="og:title" content=""/>
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content=""/>
+	<meta property="og:site_name" content=""/>
+	<meta property="og:description" content=""/>
+	<meta name="twitter:title" content="" />
+	<meta name="twitter:image" content="" />
+	<meta name="twitter:url" content="" />
+	<meta name="twitter:card" content="" />
+	
+	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	<link rel="shortcut icon" href="favicon.ico">
+	<link rel="stylesheet" type="text/css" href="static/css/cindy.css">
+	<!-- Modernizr JS -->
+	<script src="js/modernizr-2.6.2.min.js"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	
+	<script>
+	var html;
+	$('.input').keypress(function(e) {
+        if(e.which == 13) {
+            jQuery(this).blur();
+            jQuery('#submit').focus().click();
+    	}
+    });
+	function send_text() {
+	var nowObj = new Date();
+		var nowString = nowObj.toLocaleTimeString('en-US');
+		var text= $('#input_text').val();
+	  	$.ajax({
+				  url: "/sendtext",
+				  type: "POST",
+				  data: {text:text}
+			  }).done(function(response) {
+				var htmlquestion= "";
+				var htmlresponse= "";
+				response =response.result;
+					 $.each(response,function(key,val){
+						console.log(key);
+					 	console.log(val);
+					 	if (key == '1')
+							htmlquestion += val;
+					 	else htmlresponse += val;
+					});
+					htmlquestion ="<div align='right'>"+htmlquestion+"</div>";
+					htmlresponse ="<div align='left' font='color=red'>"+htmlresponse+"</div>";
+					html = "<div align='center'>" + nowString +"</div>" + htmlquestion+htmlresponse;
+					console.log(html)
+					$(".content").append(html);
+				});
+	};
+
+	function send_audio() {
+		var nowObj = new Date();
+		var nowString = nowObj.toLocaleTimeString('en-US');
+	  	$.ajax({
+				  url: "/sendaudio",
+				  type: "GET"
+			  }).done(function(response) {
+				var htmlquestion= "";
+				var htmlresponse= "";
+				response =response.result;
+					 $.each(response,function(key,val){
+						console.log(key);
+					 	console.log(val);
+					 	if (key == '1')
+							htmlquestion += val;
+					 	else htmlresponse += val;
+					});
+					htmlquestion ="<div align='right'>"+htmlquestion+"</div>";
+					htmlresponse ="<div align='left' font='blue'>"+htmlresponse+"</div>";
+					html = "<div align='center'>" + nowString +"</div>" + htmlquestion+htmlresponse;
+					console.log(html)
+					$(".content").append(html);
+				});
+	};
+
+	  </script>
+	  <style>
+body {
+  font-family: Arial;
+  color: white;
+  overflow-x: hidden;  
+}
+div {
+  padding-top: 0px;
+  padding-right: 5px;
+  padding-bottom: 0px;
+  padding-left: 2px;
+}
+.mainContainer {
+  position: absolute;
+  left: 10px;
+  right: 10px;  
+  width: 100%;
+}
+.topContainer {
+  top: 0px;
+  left: 1px;
+  right: 1px;
+  height: 300px;
+  width: 98%;
+  overflow: auto;
+  background-color: rgb(0, 162, 255);
+}
+.menubar {
+  align-self: center;
+  left: 0px;
+  width: 100%;	  
+  background-color: rgb(0, 162, 255);
+}
+.bottomContainer {
+  top: 0px;	
+  bottom: 0px;
+  left: 0px;
+  height: 300px;
+  width: 100%;
+  background-color: black;
+}
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+	  </style>
+	</head>
+	<body>
+		<div class="mainContainer">
+			<div class="topContainer">
+				<div align="center"><b><p>Improve My English Pronunication <a href="help.html">help</a></p></b>
+					<p>(if refresh, your chat history will be erased)</p>
+					<div class="content"></div>
+					<br />
+				</div>
+			</div>
+			<div class="menubar" align="center">
+				<button id="sent_tokenize_clicked" onclick="send_audio()" style="height:25px; width:50px" >Audio</button>
+				<input type="text" id="input_text" name="question" size="50%" />
+				<button id="inputtext_clicked" onclick="send_text()" style="height:25px; width:50px" >Send</button>
+				</form>
+			</div>
+		
+			<div class="bottomContainer">	
+				<img src="C:\Users\ShanRen\github\sttpron\templates\static\images\1orange.png" alt="rewards">
+				<h4>Welcome, John Doe</h4>
+				<p>This is the improvement that you have made since you have signed on.</p>
+			</div>
+	  </div>
+	
+
+	<!-- jQuery -->
+	<script src="js/jquery.min.js"></script>
+
+	<!-- Bootstrap -->
+	<script src="js/bootstrap.min.js"></script>
+
+	
+	<!-- MAIN JS -->
+	<script src="js/main.js"></script>
+
+	</body>
 </html>
+

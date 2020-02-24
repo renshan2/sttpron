@@ -85,13 +85,14 @@ app = Flask(__name__)
 @app.route('/', methods=['POST', 'GET'])
 def index():
     removeAudioFiles(os.getcwd())    
-    return render_template('preproc.html', questionAsked=query, response=reply)
+    return render_template('index.html', questionAsked=query, response=reply)
 
 @app.route('/signup', methods = ['POST'])
 def signup():
     global query
     global reply
-    query = request.form['question']    
+    query = request.form['text']  
+    print(query)  
     response = get_response(query)
     print(response)
     reply = response
