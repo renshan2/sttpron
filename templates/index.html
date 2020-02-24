@@ -62,8 +62,8 @@
 							htmlquestion += val;
 					 	else htmlresponse += val;
 					});
-					htmlquestion ="<div align='right'>"+htmlquestion+"</div>";
-					htmlresponse ="<div align='left' font='color=red'>"+htmlresponse+"</div>";
+					htmlquestion ="<div class='selfmsg' align='right'>"+htmlquestion+"</div>";
+					htmlresponse ="<div class='sysmsg' align='left' font='color=red'>"+htmlresponse+"</div>";
 					html = "<div align='center'>" + nowString +"</div>" + htmlquestion+htmlresponse;
 					console.log(html)
 					$(".content").append(html);
@@ -87,8 +87,8 @@
 							htmlquestion += val;
 					 	else htmlresponse += val;
 					});
-					htmlquestion ="<div align='right'>"+htmlquestion+"</div>";
-					htmlresponse ="<div align='left' font='blue'>"+htmlresponse+"</div>";
+					htmlquestion ="<div class='selfmsg' align='right'>"+htmlquestion+"</div>";
+					htmlresponse ="<div class='sysmsg' align='left' font='blue'>"+htmlresponse+"</div>";
 					html = "<div align='center'>" + nowString +"</div>" + htmlquestion+htmlresponse;
 					console.log(html)
 					$(".content").append(html);
@@ -107,6 +107,13 @@ div {
   padding-right: 5px;
   padding-bottom: 0px;
   padding-left: 2px;
+}
+.sysmsg {
+  padding-top: 0px;
+  padding-right: 5px;
+  padding-bottom: 0px;
+  padding-left: 2px;
+  background-color: rgb(1, 21, 39);	
 }
 .mainContainer {
   position: absolute;
