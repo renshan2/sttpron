@@ -67,8 +67,8 @@ def handleRemoveReadonly(func, path, exc):
       #raise
 
 def removeAudioFiles(dir_name):
-    test = os.listdir(dir_name)
-    for item in test:
+    itemlist = os.listdir(dir_name)
+    for item in itemlist:
         if item.endswith(".mp3"):
             filename = os.path.join(dir_name, item)
             #shutil.rmtree(filename, ignore_errors=False, onerror=handleRemoveReadonly)
@@ -105,12 +105,40 @@ def sendtext():
     query = request.form['text']  
     
     response = get_response(query) 
+
+    #TODO:
+    #based on response, make command type of actions:
+    #1. Help: display help messages;
+    #2. Payment: display Payment info;
+    #3. 
+
     #print(response)  
     talkToMe(response) 
     #reply = response
     #word = query.lower()
     result = {
         1: query, 2: response
+    }
+    result = {str(key): value for key, value in result.items()}
+    print(result)
+    return jsonify(result=result)
+
+@app.route('/sendcmd', methods=["GET", "POST"])
+def send_cmd():
+    global query
+    global reply
+    cmd = request.form['text']    
+
+    #TODO:
+    #based on response, make command type of actions:
+    #1. Help: display help messages;
+    #2. Payment: display Payment info;
+    #3. 
+    if "help" in cmd:
+        help_string = "help text goes here..."
+
+    result = {
+        1: help_string
     }
     result = {str(key): value for key, value in result.items()}
     print(result)

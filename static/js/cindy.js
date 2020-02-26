@@ -28,7 +28,29 @@ var html;
 					htmlresponse ="<div class='sysmsg' align='left' font='color=red'>"+htmlresponse+"</div>";
 					html = "<div align='center'>" + nowString +"</div>" + htmlquestion+htmlresponse;
 					console.log(html)
-					$(".content").append(html);
+					$(".content1").append(html);
+				});
+	};
+
+	function send_cmd(cmd) {
+	var nowObj = new Date();
+		var nowString = nowObj.toLocaleTimeString('en-US');
+		var text= cmd;
+		var htmlcmd = "";
+	  	$.ajax({
+				  url: "/sendcmd",
+				  type: "POST",
+				  data: {text:text}
+			  }).done(function(response) {
+				var htmlquestion= "";
+				var htmlresponse= "";
+				response =response.result;
+					 $.each(response,function(key,val){						
+					 	console.log(val);
+						htmlcmd += val;
+					});
+					console.log(htmlcmd)
+					$(".content2").append(htmlcmd);
 				});
 	};
 
@@ -53,6 +75,6 @@ var html;
 					htmlresponse ="<div class='sysmsg' align='left' font='blue'>"+htmlresponse+"</div>";
 					html = "<div align='center'>" + nowString +"</div>" + htmlquestion+htmlresponse;
 					console.log(html)
-					$(".content").append(html);
+					$(".content1").append(html);
 				});
 	};
