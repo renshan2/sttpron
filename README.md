@@ -7,10 +7,10 @@ pip install Tensorflow, Keras, Flask, nltk
 
 ## Installation:
 For Windows:
-Install VS Code
-Install Anaconda Python Package
-pip install -r requirements.txt
-pip3 install PyAudio-0.2.11-cp37-cp37m-win_amd64.whl
+1. Install VS Code   
+2. Install Anaconda Python Package   
+3. pip install -r requirements.txt   
+4. pip3 install PyAudio-0.2.11-cp37-cp37m-win_amd64.whl   
 (https://pypi.org/project/PyAudio/#files for your version, also looking into misc folder)
 
 
