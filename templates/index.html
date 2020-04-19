@@ -33,16 +33,37 @@
 	<!--[if lt IE 9]>
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 	
 	<script>
 	var html;
-	$('.input').keypress(function(e) {
-        if(e.which == 13) {
-            jQuery(this).blur();
-            jQuery('#submit').focus().click();
-    	}
-    });
+	function openpage(key) {
+	var nowObj = new Date();
+		var nowString = nowObj.toLocaleTimeString('en-US');
+		var text= key;
+	  	$.ajax({
+				  url: "/openpage",
+				  type: "POST",
+				  data: {text:text}
+			  }).done(function(response) {
+				var htmlquestion= "";
+				var htmlresponse= "";
+				response =response.result;
+					 $.each(response,function(key,val){
+						console.log(key);
+					 	console.log(val);
+					 	if (key == '1')
+							htmlquestion += val;
+					 	else htmlresponse += val;
+					});
+					htmlquestion ="<div class='selfmsg' align='right'>"+htmlquestion+"</div>";
+					htmlresponse ="<div class='sysmsg' align='left' font='color=red'>"+htmlresponse+"</div>";
+					html = "<div align='center'>" + nowString +"</div>" + htmlquestion+htmlresponse;
+					console.log(html)
+					$(".content").append(html);
+				});
+	};
+
 	function send_text() {
 	var nowObj = new Date();
 		var nowString = nowObj.toLocaleTimeString('en-US');
@@ -156,7 +177,7 @@ div {
 	<body>
 		<div class="mainContainer">
 			<div class="topContainer">
-				<div align="center"><b><p>Improve My English Pronunication <a href="help.html">help</a></p></b>
+				<div align="center"><b><p>Improve My English Pronunication <a href="javascript:open('help')">help</a></p></b>
 					<p>(if refresh, your chat history will be erased)</p>
 					<div class="content"></div>
 					<br />
@@ -166,7 +187,6 @@ div {
 				<button id="sent_tokenize_clicked" onclick="send_audio()" style="height:25px; width:50px" >Audio</button>
 				<input type="text" id="input_text" name="question" size="50%" />
 				<button id="inputtext_clicked" onclick="send_text()" style="height:25px; width:50px" >Send</button>
-				</form>
 			</div>
 		
 			<div class="bottomContainer">	

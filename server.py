@@ -115,6 +115,29 @@ def sendtext():
     result = {str(key): value for key, value in result.items()}
     print(result)
     return jsonify(result=result)
+@app.route('/openpage', methods=["GET", "POST"])
+def open_page():
+    global query
+    global reply
+    query = request.form['text']  
+    # todo:
+    # add query category and deal with the cases: for instance
+    # to display the help list;
+    # to display the payment info
+    # to display the study progress
+    # to display the chart of improvement
+    
+    response = get_response(query) 
+    #print(response)  
+    talkToMe(response) 
+    #reply = response
+    #word = query.lower()
+    result = {
+        1: query, 2: response
+    }
+    result = {str(key): value for key, value in result.items()}
+    print(result)
+    return jsonify(result=result)
 
 @app.route('/sendaudio', methods = ['GET'])
 def sendaudio():
